@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			    .title {
+				text-align:center;
+			}
+			.waterfall-content {
+				position:relative;
+				float:left;
+				width:100%;
+			}
+			.waterfall-item.active {
+				display:none;
+			}
+			.waterfall-col {
+				float:left;
+				position:relative;
+			}
+			.waterfall-col:last-child {
+				margin-right:0 !important;
+			}
+			.waterfall-item {
+				margin-bottom:1em;
+			}
+			.waterfall-item img {
+				width:100%;
+				max-width:100%;
+			}
+			.get-more-line {
+				opacity:0;
+				text-align:center;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div class="container drag-box">
+		    <h3 class="text-center title">浮动分列布局瀑布流</h3>
+		    <div class="waterfall-content">
+		
+		    </div>
+		    <div class="get-more-line text-center clearfix">
+		        <span>正在加载中。。。</span>
+		    </div>
+		</div>
+	</body>
+	<script type="text/javascript" src="jquery-1.10.1.js"></script>
+	<script type="text/javascript">
+		$(function() {
+		    var boxWidth = $('.waterfall-content').width(), //盒子宽度
+		        colNum = 5, //列数
+		        allNum = 110, //总共的数据
+		        initNum = 28, //初始化显示数据
+		        spacing = boxWidth * 0.02; //每列的间距
+		    itemWidth = (boxWidth - spacing * (colNum - 1)) / colNum, //每列的宽度
+		        remainNum = allNum, //剩余未展示的数据
+		        maxNum = colNum * 2, //每次显示的最大数量 ,
+		        showNum = maxNum, //每次显示的数量
+		        nowCol = 0 //当前所在的列
+		    ;
+		    showNum = initNum; //设置初始化显示数据
+		    init();
+		
+		    //滚动判断是否动态显示数据
+		    $(window).scroll(function() {
+		        installData();
+		    })
+		
+		    //初始化
+		    function init(callBack) {
+		        addCol(function(data) {
+		            $('.waterfall-content').append(data);
+		            addList();
+		        });
+		    }
+		
+		    //组装列
+		    function addCol(callBack) {
+		        var colHtml = [];
+		        for (var i = 0; i < colNum; i++) {
+		            colHtml.push('<div class="waterfall-col" style="width: ' + itemWidth + 'px; margin-right: ' + spacing + 'px;"></div>');
+		        }
+		        if (callBack != undefined) {
+		            callBack(colHtml.join(''));
+		        }
+		        return colHtml.join('');
+		    }
+		
+		
+		    //添加数据
+		    function addList(callBack) {
+		        var counter = 0,
+		            key = 0,
+		            listHtml = '';;
+		        $('.get-more-line').animate({
+		            opacity: 1
+		        });
+		        for (var i = nowCol; i < showNum + nowCol; i++) {
+		            key = i % colNum;
+		            listHtml = '<div class="waterfall-item active" style="opacity: 0">' + randomGetImg() + '</div>';
+		            $('.waterfall-col').eq(key).append(listHtml);
+		        }
+		        nowCol = key + 1;
+		        var imgLength = $('.waterfall-item.active img').length;
+		
+		        //判断图片是否全部加载
+		        $('.waterfall-item.active').each(function(index) {
+		            $(this).find('img').load(function() {
+		                counter++;
+		                if (counter == imgLength) {
+		                    counter = 0;
+		                    $('.get-more-line').animate({
+		                        opacity: 0
+		                    }, 'fast', function() {
+		                        //将已经加载好的显示出来
+		                        $('.waterfall-item.active').each(function(index) {
+		                            $(this).removeClass('active').animate({
+		                                'opacity': 1
+		                            }, (400 + 100 * index), function() {
+		
+		                            })
+		
+		                            if (index == imgLength - 1) {
+		                                if (callBack != undefined) {
+		                                    callBack();
+		                                }
+		                            }
+		                        });
+		                    });
+		                }
+		            });
+		        });
+		    }
+		
+		    //组装动态数据
+		    function installData() {
+		        var activeNum = $('.waterfall-item.active').length; //正在显示的数量，如果存在，则说明已经有图片正在加载
+		        if (remainNum > 0) { //有剩余的数据
+		            if (activeNum <= 0) { //可以生成列表的标志，避免重复操作
+		                var hiddenHeight = $(document).height() - $(window).height(), //获取文档高度和可视屏之差
+		                    scrollTop = $(document).scrollTop(); //滚动条离顶部的高度
+		                if (hiddenHeight - scrollTop <= 200) { //距离顶部的距离小于等于200触发
+		                    if (remainNum > 0 && remainNum < maxNum) {
+		                        showNum = remainNum;
+		                    } else if (remainNum >= maxNum) {
+		                        showNum = maxNum;
+		                    }
+		                    remainNum = remainNum - showNum;
+		                    addList(function() {
+		                        if (remainNum <= 0) {
+		                            $('.get-more-line > span').addClass('disabled').text('已经到底了');
+		                            $('.get-more-line').animate({
+		                                opacity: 1
+		                            });
+		                        }
+		                    });
+		                }
+		            }
+		        }
+		    }
+		
+		
+		
+		    //随机获取图片
+		    function randomGetImg() {
+		        var num = parseInt(9 * Math.random()),
+		            // sizeArr = ["500x500", "500x300", "300x500"],
+		            // size = sizeArr[parseInt(3 * Math.random())],
+		            imgUrl = './img/' + (num + 1) + '.jpg';
+		        return '<img src="' + imgUrl + '" />';
+		    }
+		})
+	</script>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			table,th, td
+			{
+			    border: 1px solid black;
+				padding: 10px;
+				line-height: 10px;
+				height: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<table>td高度的问题
+			<tr>
+				<th>1 </th>
+			    <th>2 </th> 
+			</tr>
+			<tr>
+				<td> 3</td>
+				<td> 4</td>
+			</tr>
+			<tr>
+				<td>5 </td>
+				<td>6 </td>
+			</tr>
+			问题：table中td的宽度都不包含border的宽度，
+			但是oprea和ff中td的高度包含了border的高度
+			解决：设置line-height和height一样。在ie中
+			如果td中的没有内容，那么border将不会显示
+		</table>
+	</body>
+</html>

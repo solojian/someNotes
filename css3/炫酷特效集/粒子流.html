@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{
+			    margin: 0;
+			    padding: 0;
+			}
+			
+			html, body {
+			    height: 100%;
+			    margin: 0;
+			    overflow: hidden;
+			    width: 100%;
+			}
+			
+			body{
+			    /* background-color: #333; */
+			}
+			
+			#wrap {
+			    height: 100%;
+			    width: 100%;
+			}
+			
+			canvas {
+			    display: block;
+			}
+			
+			p{
+			    position: fixed;
+			    top: 5%;
+			    left: 2%;
+			    color: #fff;
+			    font-size: 32px;
+			    font-weight: bold;
+			    font-family: Arial, Helvetica, sans-serif;
+			}
+		</style>
+	</head>
+	<body>
+		<p>Window Mousemove</p>
+		<div id="wrap">
+		    <canvas id="canvas">
+		        canvas not support
+		    </canvas>
+		</div>
+		<script type="text/javascript">
+			class Utils {
+			    //引数の最小?から最大?の殓でランダムな?の整数を返す轹数
+			    static randomIntFromRange(min, max) {
+			        return Math.floor(Math.random() * (max - min + 1) + min)
+			    }
+			    //ランダムな色を返す轹数
+			    static randomColor(colors) {
+			        return colors[Math.floor(Math.random() * colors.length)]
+			    }
+			}
+			
+			class Vector2 {
+			    /**
+			     * コンストラクタ┼
+			     * @param {number} x
+			     * @param {number} y
+			     */
+			    constructor(x, y) {
+			        this.x = x;
+			        this.y = y;
+			    }
+			    /**
+			     * ベクトルのxとyをセットする
+			     */
+			    set(x, y) {
+			        this.x = x;
+			        this.y = y;
+			        return this;
+			    }
+			    /**
+			     * ベクトルの妖氧
+			     */
+			    clone() {
+			        return new Vector2(this.x, this.y);
+			    }
+			    /**
+			     * ベクトルの足し算 : 渡されたベクトルのxとyを自分に足す
+			     */
+			    add(v) {
+			        this.x += v.x;
+			        this.y += v.y;
+			        return this;
+			    }
+			    /**
+			     * ベクトルの引き算 : 渡されたベクトルのxとyを自分から引く
+			     */
+			    sub(v) {
+			        this.x -= v.x;
+			        this.y -= v.y;
+			        return this;
+			    }
+			    /**
+			     * ベクトルの??
+			     */
+			    mult(v) {
+			        this.x *= v.x;
+			        this.y *= v.y;
+			        return this;
+			    }
+			    multScalar(v) {
+			        this.x *= v;
+			        this.y *= v;
+			        return this;
+			    }
+			    /**
+			     * ベクトルの大きさ
+			     */
+			    magnitude() {
+			        return Math.sqrt(this.x * this.x + this.y * this.y);
+			    }
+			    /**
+			     * ベクトルの?位化
+			     */
+			    normalized() {
+			        let magnitude = Math.sqrt(this.x * this.x + this.y * this.y);
+			        this.x /= magnitude;
+			        this.y /= magnitude;
+			    }
+			    /**
+			     * ベクトルの向きを?更して速度を?悚工?
+			     */
+			    setFromScalarAngle(scalar, angle) {
+			        this.x = Math.cos(angle) * scalar;
+			        this.y = Math.sin(angle) * scalar;
+			    }
+			    distanceToSquared(v) {
+			        var dx = this.x - v.x, dy = this.y - v.y;
+			        return dx * dx + dy * dy;
+			    }
+			}
+			
+			class Particle {
+			    constructor(x, y, radius, color, friction) {
+			        this.canvas = document.getElementById('canvas');
+			        this.ctx = this.canvas.getContext('2d');
+			        this.pos = new Vector2(x, y);
+			        this.radius = radius;
+			        this.friction = new Vector2(friction, friction);
+			        this.color = color;
+			        this.mouse = new Vector2(this.canvas.width / 2, this.canvas.height / 2);
+			        this.vx = new Vector2(0, 0);
+			        this.num = Math.random() * 5 + 2;
+			    }
+			    update() {
+			        // マウスとパ┼ティクルの位置轹?からベクトルを作り?位化する
+			        this.vectorOfParticleToMouse = this.mouse.clone().sub(this.pos);
+			        this.vectorOfParticleToMouse.normalized();
+			        //?を小さくする
+			        this.vectorOfParticleToMouse.multScalar(.1);
+			        //咄路方向ベクトルに?を加算して?位化する
+			        this.vx.add(this.vectorOfParticleToMouse);
+			        this.vx.normalized();
+			        this.pos.add(this.vx.clone().multScalar(this.num));
+			    }
+			    draw() {
+			        this.ctx.save();
+			        this.ctx.beginPath();
+			        this.ctx.arc(this.pos.x, this.pos.y, this.radius, 0, Math.PI * 2, false);
+			        this.ctx.shadowBlur = 5;
+			        this.ctx.shadowOffsetX = 0;
+			        this.ctx.shadowOffsetY = 0;
+			        this.ctx.globalAlpha = '1'
+			        this.ctx.fillStyle = this.color;
+			        this.ctx.fill();
+			        this.ctx.restore();
+			    }
+			    mousemove() {
+			        window.addEventListener('mousemove', (e) => {
+			            this.mouse.set(e.clientX, e.clientY);
+			        })
+			    }
+			}
+			
+			window.onload = function () {
+			
+			    var canvas = document.getElementById('canvas'),
+			        ctx = canvas.getContext('2d'),
+			        width = canvas.width = window.innerWidth,
+			        height = canvas.height = window.innerHeight,
+			        particles = [],
+			        colors = ["#0952BD", "#A5BFF0", "#118CD6", "#1AAEE8", "#F2E8C9"];
+			
+			    //リサイズイベント
+			    window.onresize = () => {
+			        width = canvas.width = window.innerWidth;
+			        height = canvas.height = window.innerHeight;
+			    }
+			
+			    for (let i = 0; i < 100; i++) {
+			        particles.push(new Particle(
+			            Math.random() * width,
+			            Math.random() * height,
+			            3,
+			            Utils.randomColor(colors),
+			        ))
+			        particles[i].mousemove();
+			    }
+			
+			    render();
+			    function render() {
+			        ctx.fillStyle = 'hsla(260,40%,5%,.2)';
+			        ctx.fillRect(0, 0, width, height);
+			        for (let i = 0; i < particles.length; i++) {
+			            var p = particles[i]
+			            p.update();
+			            p.draw();
+			        }
+			        requestAnimationFrame(render);
+			    }
+			}
+		</script>
+	</body>
+</html>

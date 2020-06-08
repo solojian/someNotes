@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			a {
+				text-decoration: none;
+				color: gray;
+				display: block;
+			}
+			#nav .row {
+				display: flex;
+			}
+			#nav>.row>.items {
+				flex: 1;/* 核心 */
+				text-align: center;
+			}
+			#nav>.row>.items>a:before {
+				content: '';
+				width: 65px;
+				height: 65px;
+				margin: 0 auto;
+				display: block;
+			}
+			#nav>.row:nth-child(1)>.items:nth-child(1)>a::before {
+				background: url(../img/2.jpg) no-repeat;
+			}
+			#nav>.row:nth-child(1)>.items:nth-child(2)>a::before {
+				background: url(../img/2.jpg) no-repeat;
+			}
+			#nav>.row:nth-child(1)>.items:nth-child(3)>a::before {
+				background: url(../img/2.jpg) no-repeat;
+			}
+			#nav>.row:nth-child(1)>.items:nth-child(4)>a::before {
+				background: url(../img/2.jpg) no-repeat;
+			}
+			#nav>.row:nth-child(1)>.items:nth-child(5)>a::before {
+				background: url(../img/2.jpg) no-repeat;
+			}#nav>.row:nth-child(2)>.items:nth-child(1)>a::before {
+				background: url(../img/2.jpg) no-repeat;
+			}
+			#nav>.row:nth-child(2)>.items:nth-child(2)>a::before {
+				background: url(../img/1000_19.png) no-repeat;
+			}
+			#nav>.row:nth-child(2)>.items:nth-child(3)>a::before {
+				background: url(../img/2.jpg) no-repeat;
+			}
+			#nav>.row:nth-child(2)>.items:nth-child(4)>a::before {
+				background: url(../img/2.jpg) no-repeat;
+			}
+			#nav>.row:nth-child(2)>.items:nth-child(5)>a::before {
+				background: url(../img/2.jpg) no-repeat;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="nav">
+			<div class="row">
+				<div class="items">
+					<a href="javascript:;">da</a>
+				</div>
+				<div class="items">
+					<a href="javascript:;">df</a>
+				</div>
+				<div class="items">
+					<a href="javascript:;">er</a>
+				</div>
+				<div class="items">
+					<a href="javascript:;">g</a>
+				</div>
+				<div class="items">
+					<a href="javascript:;">c</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="items">
+					<a href="javascript:;">sd</a>
+				</div>
+				<div class="items">
+					<a href="javascript:;">f</a>
+				</div>
+				<div class="items">
+					<a href="javascript:;">g</a>
+				</div>
+				<div class="items">
+					<a href="javascript:;">s</a>
+				</div>
+				<div class="items">
+					<a href="javascript:;">a</a>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

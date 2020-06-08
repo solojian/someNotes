@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			 * {
+				padding:0;
+				margin:0;
+			}
+			.wrap {
+				position:relative;
+				width:80%;
+				margin:0 auto;
+				text-align:center;
+				border:1px solid red;
+			}
+			.gard {
+				width:150px;
+				background-color:brown;
+				margin:5px;
+				height:70px;
+				position:absolute;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+		    <div class="gard"></div>
+		    <div class="gard" style="height: 60px"></div>
+		    <div class="gard" style="height: 50px"></div>
+		    <div class="gard" style="height:40px"></div>
+		    <div class="gard" style="height: 50px"></div>
+		    <div class="gard" style="height:80px"></div>
+		    <div class="gard" style="height: 60px"></div>
+		    <div class="gard" style="height: 50px"></div>
+		    <div class="gard" style="height:40px"></div>
+		    <div class="gard" style="height: 50px"></div>
+		    <div class="gard" style="height: 50px"></div>
+		    <div class="gard" style="height:80px"></div>
+		    <div class="gard" style="height: 60px"></div>
+		    <div class="gard" style="height: 50px"></div>
+		    <div class="gard" style="height:80px"></div>
+		    <div class="gard" style="height: 60px"></div>
+		    <div class="gard" style="height: 50px"></div>
+		    <div class="gard" style="height:40px"></div>
+		    <div class="gard" style="height: 20px"></div>
+		    <div class="gard" style="height: 20px"></div>
+		    <div class="gard" style="height:80px"></div>
+		    <div class="gard" style="height: 60px"></div>
+		    <div class="gard" style="height: 50px"></div>
+		    <div class="gard" style="height:80px"></div>
+		    <div class="gard" style="height: 60px"></div>
+		    <div class="gard" style="height: 50px"></div>
+		    <div class="gard" style="height:40px"></div>
+		    <div class="gard" style="height: 50px"></div>
+		    <div class="gard" style="height: 20px"></div>
+		    <div class="gard" style="height:80px"></div>
+		    <div class="gard" style="height: 60px"></div>
+		
+		</div>
+	</body>
+	<script type="text/javascript" src="jquery-1.10.1.js"></script>
+	<script type="text/javascript">
+		 $(function () {
+		        let wrap=$('.wrap');
+		        let item=$('.gard');
+		        let gutter=5;
+		        let wrapwidth=wrap[0].getBoundingClientRect().width;
+		        let itemwidth=item[0].getBoundingClientRect().width+gutter;
+		        let cols=Math.max(Math.floor(wrapwidth/itemwidth),1);
+		         wrap.css('width',cols*(itemwidth+gutter));
+		        let arr1=[],arr2=[];
+		        for(g=0;g<cols;g++)
+		        {
+		            arr1.push((itemwidth)*g+gutter);
+		            arr2.push(gutter);
+		        }
+		        item.each(function (i) {
+		            let itemIndex = arr2.slice(0).sort(function (a, b) {
+		                return a - b;
+		            }).shift();
+		            let index=arr2.indexOf(itemIndex);
+		            var posX = arr1[index];
+		            var posY = arr2[index];
+		           $(this).animate({'left':posX,'top':posY},'0.5s');
+		           console.log(posX+','+posY);
+		           arr2[index] += this.getBoundingClientRect().height + gutter;
+		           console.log( arr2[index]);
+		            var containerHeight =arr2.slice(0).sort(function (a, b) {
+		                return a - b;
+		            }).pop();
+		            wrap[0].style.height = containerHeight + 'px';
+		        })
+		
+		    })
+	</script>
+</html>

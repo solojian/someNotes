@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			body{min-width: 600px;}
+			.footer,.header {
+				height: 20px;
+				background-color: goldenrod;
+				text-align: center;
+				border: #000000 1px solid;
+			}
+			#container {
+				padding: 0 200px;/* 核心 */
+				overflow: hidden;
+			}
+			/* 伪登高布局 */
+			#container .middle,#container .left,#container .right {
+				padding-bottom: 2000px;
+				margin-bottom: -2000px;
+			}
+			#container .middle {
+				float: left;
+				width: 100%;
+				background-color: #aaff7f;
+			}
+			#container .left {
+				position: relative;/* 核心 */
+				margin-left: -100%;
+				left: -200px;
+				float: left;
+				width: 200px;
+				background-color: #5555ff;
+			}
+			
+			#container .right {
+				position: relative;/* 核心 */
+				margin-left: -200px;
+				left: 200px;
+				float: left;
+				width: 200px;
+				background-color: #ff5500;
+			}
+			.clerafix {
+				zoom: 1;
+			}
+			.clerafix::after {
+				display: block;
+				content: '';
+				clear: both;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header"></div>
+		<div id="container" class="clerafix">
+			<div class="middle">middle<br/>
+			middle<br/>
+			middle<br/>
+			middle<br/>
+			middle<br/>
+			middle<br/>
+			middle<br/>
+			middle<br/>
+			</div>
+			<div class="left">left</div>
+			
+			<div class="right">right</div>
+		</div>
+		<div class="footer"></div>
+	</body>
+</html>

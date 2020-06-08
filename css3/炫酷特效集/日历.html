@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+			
+			* {
+				box-sizing: border-box;
+				padding: 0;
+				margin: 0;
+			}
+			
+			body {
+				background: #7e9dff;
+				font-family: "Roboto", sans-serif;
+				display: flex;
+				align-items: center;
+				height: 100vh;
+			}
+			
+			.main-container {
+				background: #ecfffc;
+				color: #7e9dff;
+				width: 500px;
+				margin: auto;
+				border-radius: 10px;
+			}
+			
+			h4 {
+				color: #7e9dff;
+				opacity: 0.7;
+			}
+			
+			ul {
+				list-style: none;
+			}
+			
+			a {
+				text-decoration: none;
+			}
+			
+			.calendar-head {
+				display: flex;
+				justify-content: space-between;
+				padding: 30px;
+				border-bottom: 2px solid #7e9dff;
+			}
+			
+			.calendar-body {
+				padding: 30px;
+				text-align: center;
+			}
+			
+			.weekdays {
+				text-transform: uppercase;
+				color: #7e9dff;
+				font-weight: bold;
+				font-size: 0.9rem;
+				display: grid;
+				grid-template-columns: repeat(7, 1fr);
+				margin-bottom: 10px;
+			}
+			
+			.days {
+				display: grid;
+				grid-template-columns: repeat(7, 1fr);
+			}
+			
+			.days li {
+				padding: 10px 0;
+				cursor: pointer;
+				position: relative;
+			}
+			
+			.days li:hover {
+				color: #c74b43;
+			}
+			
+			.previous-month {
+				opacity: 0.2;
+			}
+			
+			.date-with-event {
+				border: 2px solid #7e9dff;
+				padding: 10px;
+				border-radius: 50%;
+			}
+			
+			.date-with-event:hover {
+				background: #7e9dff;
+				color: #ecfffc;
+				font-weight: bold;
+			}
+			
+			.event-count {
+				position: absolute;
+				top: 0;
+				right: 5px;
+				font-size: 0.6rem;
+				background: #c74b43;
+				color: #fff;
+				display: block;
+				padding: 2px 5px;
+				border-radius: 50px;
+			}
+			
+			.active {
+				background: #7e9dff;
+				color: #ecfffc;
+				font-weight: bold;
+				padding: 10px;
+				border-radius: 50%;
+			}
+			
+			.calendar-footer {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 30px;
+				border-top: 2px solid #7e9dff;
+			}
+			
+			.add-event-btn {
+				color: #7e9dff;
+				padding: 10px 15px;
+				border: 2px solid #7e9dff;
+				border-radius: 50%;
+			}
+			
+			.add-event-btn:hover {
+				background: #7e9dff;
+				color: #ecfffc;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div class="main-container">
+		
+		    <div class="calendar-head">
+		        <h4 class="current-weekday">Monday 18th</h4>
+		        <h4 class="month-year">May 2020</h4>
+		    </div>
+		
+		    <div class="calendar-body">
+		        <ul class="weekdays">
+		            <li>Mon</li>
+		            <li>Tue</li>
+		            <li>Wed</li>
+		            <li>Thu</li>
+		            <li>Fri</li>
+		            <li>Sat</li>
+		            <li>Sun</li>
+		        </ul>
+		
+		        <ul class="days">
+		            <li class="previous-month">27</li>
+		            <li class="previous-month">28</li>
+		            <li class="previous-month">29</li>
+		            <li class="previous-month">30</li>
+		            <li>1</li>
+		            <li>2</li>
+		            <li>3</li>
+		            <li>4</li>
+		            <li>5</li>
+		            <li>6</li>
+		            <li>7</li>
+		            <li>8</li>
+		            <li>9</li>
+		            <li>10</li>
+		            <li>11</li>
+		            <li> <span class="date-with-event">12</span><span class="event-count">3</span></li>
+		            <li>13</li>
+		            <li>14</li>
+		            <li>15</li>
+		            <li>16</li>
+		            <li>17</li>
+		            <li><span class="active">18</span></li>
+		            <li>19</li>
+		            <li>20</li>
+		            <li>21</li>
+		            <li>22</li>
+		            <li>23</li>
+		            <li>24</li>
+		            <li>25</li>
+		            <li>26</li>
+		            <li>27</li>
+		            <li> <span class="date-with-event">28</span><span class="event-count">5</span></li>
+		            <li>29</li>
+		            <li>30</li>
+		            <li>31</li>
+		        </ul>
+		    </div>
+		
+		    <div class="calendar-footer">
+		        <h4 class="current-hour">10:10 am</h4>
+		        <a href="#" class="add-event-btn">+</a>
+		        <h4 class="current-temperature">28oC</h4>
+		    </div>
+		</div>
+	</body>
+</html>

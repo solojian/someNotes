@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		 $(function(){
+		        //请求参数
+		        var list = {};
+		        //
+		        $.ajax({
+		            //请求方式
+		            type : "POST",
+		            //请求的媒体类型
+		            contentType: "application/json;charset=UTF-8",
+		            //请求地址
+		            url : "http://127.0.0.1/admin/list/",
+		            //数据，json字符串
+		            data : JSON.stringify(list),
+		            //请求成功
+		            success : function(result) {
+		                console.log(result);
+		            },
+		            //请求失败，包含具体的错误信息
+		            error : function(e){
+		                console.log(e.status);
+		                console.log(e.responseText);
+		            }
+		        });
+		    });
+		————————————————
+		版权声明：本文为CSDN博主「西安很远」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+		原文链接：https://blog.csdn.net/xianhenyuan/java/article/details/92669817
+	</script>
+</html>

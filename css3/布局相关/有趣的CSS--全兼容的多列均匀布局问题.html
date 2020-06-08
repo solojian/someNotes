@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin:0;
+				padding:0;
+			}
+			body {
+				background-color:#1d2025;
+				font-family:'Arail';
+			}
+			a {
+				text-decoration:none;
+			}
+			h2 {
+				text-align:center;
+				padding:20px 0;
+				background:-webkit-linear-gradient(left,#ffcb52 50%,#ff451f 80%);
+				-webkit-background-clip:text;
+				-webkit-text-fill-color:transparent;
+			}
+			.container {
+				width:400px;
+				margin:10px auto 0;
+				background:#ddd;
+			}
+			.justify {
+				position:relative;
+				width:100%;
+				height:30px;
+				text-align:justify;
+				margin-bottom:20px;
+			}
+			i {
+				width:30px;
+				line-height:30px;
+				display:inline-block;
+				text-align:center;
+				background:#333;
+				color:white;
+				border-radius:50%;
+				overflow:hidden;
+				font-style:normal;
+			}
+			.justify:after {
+				content:"";
+				display:inline-block;
+				position:relative;
+				width:100%;
+			}
+			p {
+				width:380px;
+				padding:10px;
+				margin:5px auto;
+				background:-webkit-linear-gradient(left,#3dade9,#bf2fcb);
+				-webkit-background-clip:text;
+				-webkit-text-fill-color:transparent;
+				box-shadow:0 1px 0 1px rgba(43,220,146,0.25),0 -1px 0 1px rgba(129,214,106,0.25),1px 0 0 1px rgba(43,220,146,0.25),-1px 0 0 1px rgba(129,214,106,0.25),1px -1px 0 1px rgba(86,217,126,0.5),-1px 1px 0 1px rgba(86,217,126,0.5),1px 1px 0 1px rgba(0,223,166,0.75),-1px -1px 0 1px rgba(173,211,86,0.75);
+			}
+
+		</style>
+	</head>
+	<body>
+		<h2>
+		    有趣的CSS--全兼容的多列均匀布局问题
+		</h2>
+		
+		<div class="container">
+		    <div class="justify">
+		        <i>1个</i>
+		        <i>2个</i>
+		        <i>3个</i>
+		        <i>4个</i>
+		        <i>5个</i>
+		        <!--[if lte IE 7]><b></b><![endif]-->
+		        
+		    </div>
+		    <div class="justify">
+		        <i>1</i>
+		        <i>2</i>
+		        <i>3</i>
+		        <i>4</i>
+		    </div>
+		    <div class="justify">
+		        <i>1</i>
+		        <i>2</i>
+		        <i>3</i>
+		    </div>
+		    <div class="justify">
+		        <i>1</i>
+		        <i>2</i>
+		    </div>
+		    <div class="justify">
+		        <i>1</i>
+		    </div>
+		</div>
+		<p>
+		    通过给伪元素 :after 设置 inline-block 设置宽度 100% ，配合容器的 text-align: justify 就可以轻松实现多列均匀布局； 再多配合几句 hack 代码，可以实现兼容到 IE6+ ，最重要的是代码不长，很好理解。
+		</p>
+		<p>
+		    那么为什么使用了 :after 伪元素之后就可以实现对齐了呢？
+		</p>
+		<p>
+		    原因在于 justify 只有在存在第二行的情况下，第一行才两端对齐，所以在这里，我们需要制造一个假的第二行，而 :after 伪元素正好再适合不过。
+		</p>
+	</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			* {
+			  box-sizing: border-box;
+			  margin: 0;
+			  padding: 0;
+			}
+			
+			body {
+			  width: 100%;
+			  height: 100vh;
+			  display: flex;
+			  justify-content: center;
+			  align-items: center;
+			  background: #202020;
+			  overflow: hidden;
+			}
+			
+			main {
+			  height: 200px;
+			  width: 300px;
+			  display: grid;
+			  grid-template-rows: repeat(2, 1fr);
+			}
+			main .links {
+			  display: flex;
+			  justify-content: center;
+			  align-items: center;
+			}
+			main .links .link {
+			  --color: rgba(255, 255, 255, 0.5);
+			  position: relative;
+			  font-size: 0.95rem;
+			  font-family: "Sainte Colombe";
+			  text-decoration: none;
+			  color: var(--color);
+			  margin: 2rem;
+			  transition: color 300ms ease;
+			}
+			main .links .link::after {
+			  content: "";
+			  position: absolute;
+			  left: 0;
+			  bottom: 0;
+			  width: 100%;
+			  height: 1px;
+			  background: white;
+			  transform-origin: right;
+			  transform: scaleX(0);
+			  transition: transform 300ms ease;
+			}
+			main .links .link:hover {
+			  --color: rgb(255, 255, 255);
+			}
+			main .links .link:hover::after {
+			  transform-origin: left;
+			  transform: scaleX(1);
+			}
+			main .socials {
+			  display: flex;
+			  justify-content: center;
+			  align-items: center;
+			}
+			main .socials .social {
+			  --icon-size: 40px;
+			  width: var(--icon-size);
+			  height: var(--icon-size);
+			  display: flex;
+			  justify-content: center;
+			  align-items: center;
+			  border-radius: 0.5rem;
+			  margin: 1.5rem;
+			  color: #fff;
+			  background: var(--bg);
+			  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.014), 0 6.7px 5.3px rgba(0, 0, 0, 0.02), 0 12.5px 10px rgba(0, 0, 0, 0.025), 0 22.3px 17.9px rgba(0, 0, 0, 0.03), 0 41.8px 33.4px rgba(0, 0, 0, 0.036), 0 100px 80px rgba(0, 0, 0, 0.05);
+			}
+			main .socials .social.codepen {
+			  --bg: #000;
+			}
+			main .socials .social.youtube {
+			  --bg: #c4302b;
+			}
+			main .socials .social.dribbble {
+			  --bg: #ea4c89;
+			}
+			main .socials .social.twitter {
+			  --bg: #00acee;
+			}
+			
+			.cursor .cursor--small,
+			.cursor .cursor--large,
+			.cursor .cursor--text {
+			  position: fixed;
+			  left: 0;
+			  top: 0;
+			  transform: translate(-50%, -50%);
+			  border-radius: 50%;
+			  width: var(--cursor-size);
+			  height: var(--cursor-size);
+			  mix-blend-mode: difference;
+			  pointer-events: none;
+			  user-select: none;
+			}
+			.cursor .cursor--text {
+			  --cursor-size: fit-content;
+			  font-size: 0.75rem;
+			  color: #fff;
+			  opacity: 0;
+			}
+			.cursor .cursor--text .text {
+			  font-family: sans-serif;
+			  font-weight: bold;
+			}
+			.cursor .cursor--small {
+			  --cursor-size: 20px;
+			  background: #fff;
+			}
+			.cursor .cursor--large {
+			  --cursor-size: 60px;
+			  border: 2px solid #fff;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.1.1/gsap.min.js"></script>
+		<script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/circletype@2.3.0/dist/circletype.min.js"></script>
+		<main>
+			<div class="links">
+				<a class="link cursor-hover-item" href="#" data-cursor-text="GO HERE!" data-cursor-text-repeat="4">Link.</a>
+				<a class="link cursor-hover-item" href="#" data-cursor-text="LEARN MORE!" data-cursor-text-repeat="3">Read
+					More.</a>
+			</div>
+		
+			<div class="socials">
+				<div class="social cursor-hover-item codepen" data-cursor-text="CODEPEN" data-cursor-text-repeat="4">
+					<ion-icon name="logo-codepen"></ion-icon>
+				</div>
+				<div class="social cursor-hover-item youtube" data-cursor-text="YOUTUBE" data-cursor-text-repeat="4">
+					<ion-icon name="logo-youtube"></ion-icon>
+				</div>
+				<div class="social cursor-hover-item dribbble" data-cursor-text="DRIBBBLE" data-cursor-text-repeat="4">
+					<ion-icon name="logo-dribbble"></ion-icon>
+				</div>
+				<div class="social cursor-hover-item twitter" data-cursor-text="TWITTER" data-cursor-text-repeat="4">
+					<ion-icon name="logo-twitter"></ion-icon>
+				</div>
+			</div>
+		</main>
+		
+		
+		<div class="cursor">
+			<div class="cursor--small"></div>
+			<div class="cursor--large"></div>
+			<div class="cursor--text">
+				<div class="text">GO HERE! GO HERE! GO HERE! GO HERE!</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			console.clear();
+			
+			const { gsap, CircleType } = window;
+			
+			const cursorOuter = document.querySelector(".cursor--large");
+			const cursorInner = document.querySelector(".cursor--small");
+			const cursorTextContainerEl = document.querySelector(".cursor--text");
+			const cursorTextEl = cursorTextContainerEl.querySelector(".text");
+			
+			const hoverItems = document.querySelectorAll(".cursor-hover-item");
+			const hoverEffectDuration = 0.3;
+			let isHovered = false;
+			
+			const cursorRotationDuration = 8;
+			
+			let circleType = new CircleType(cursorTextEl);
+			circleType.radius(50);
+			
+			hoverItems.forEach((item) => {
+				item.addEventListener("pointerenter", handlePointerEnter);
+				item.addEventListener("pointerleave", handlePointerLeave);
+			});
+			
+			let mouse = {
+				x: -100,
+				y: -100,
+			};
+			
+			document.body.addEventListener("pointermove", updateCursorPosition);
+			
+			function updateCursorPosition(e) {
+				mouse.x = e.pageX;
+				mouse.y = e.pageY;
+			}
+			
+			function updateCursor() {
+				gsap.set([cursorInner, cursorTextContainerEl], {
+					x: mouse.x,
+					y: mouse.y,
+				});
+			
+				gsap.to(cursorOuter, {
+					duration: 0.15,
+					x: mouse.x,
+					y: mouse.y,
+				});
+			
+				if (!isHovered) {
+					gsap.to(cursorTextContainerEl, hoverEffectDuration, {
+						opacity: 0,
+					});
+					gsap.set(cursorTextContainerEl, {
+						rotate: 0,
+					});
+				}
+			
+				requestAnimationFrame(updateCursor);
+			}
+			
+			updateCursor();
+			
+			function handlePointerEnter(e) {
+				isHovered = true;
+			
+				const target = e.currentTarget;
+				const cursorTextRepeatTimes = target.getAttribute("data-cursor-text-repeat");
+				const cursorText = returnMultipleString(
+					target.getAttribute("data-cursor-text"),
+					cursorTextRepeatTimes
+				);
+			
+				gsap.fromTo(
+					cursorTextContainerEl,
+					{
+						rotate: 0,
+					},
+					{
+						duration: cursorRotationDuration,
+						rotate: 360,
+						ease: "none",
+						repeat: -1,
+					}
+				);
+			
+				circleType.destroy();
+			
+				cursorTextEl.innerHTML = cursorText;
+				circleType = new CircleType(cursorTextEl);
+			
+				gsap.to(cursorInner, hoverEffectDuration, {
+					scale: 2,
+				});
+			
+				gsap.fromTo(
+					cursorTextContainerEl,
+					hoverEffectDuration,
+					{
+						scale: 1.2,
+						opacity: 0,
+					},
+					{
+						delay: hoverEffectDuration * 0.75,
+						scale: 1,
+						opacity: 1,
+					}
+				);
+				gsap.to(cursorOuter, hoverEffectDuration, {
+					scale: 1.2,
+					opacity: 0,
+				});
+			}
+			
+			function handlePointerLeave() {
+				isHovered = false;
+				gsap.to([cursorInner, cursorOuter], hoverEffectDuration, {
+					scale: 1,
+					opacity: 1,
+				});
+			}
+			
+			function returnMultipleString(string, count) {
+				let s = "";
+				for (let i = 0; i < count; i++) {
+					s += ` ${string} `;
+				}
+				return s;
+			}
+
+		</script>
+	</body>
+</html>
