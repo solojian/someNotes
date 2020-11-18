@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-11-18 11:20:49
+ * @LastEditTime: 2020-11-18 17:17:46
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \someNotes\vue\pre\正则表达式\09_lastIndex.html
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,8 +16,8 @@
 
 </body>
 <script>
-    /*
-        只有正则表达式使用了表示全局检索的 "g" 标志时，该属性才会起作用。此时应用下面的规则：
+    /*   
+        只有正则表达式使用了表示全局检索的 "g" 标志时，该属性才会起作用。此时应用下面的规则为
 				1.当lastIndex大于源字符串的长度
                     reg.test false
                     reg.exec null
@@ -35,7 +43,7 @@
                     reg.test永远都是 true
                     reg.exec永远都是 ""
                     lastindex不会发生改变
-       */
+       */ 
 
     var str = "damu damu damu damu";
     var reg = /damu/g;
