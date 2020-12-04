@@ -10,7 +10,6 @@ var connect = require('gulp-connect');
 var open = require('open');
 
 // var pulgins  = require('gulp-load-plugins')();
-
 gulp.task('js',function(){
     return gulp.src('src/js/*.js')
     //.pipe(plugins.concat('build.js'))
